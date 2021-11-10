@@ -19,29 +19,8 @@ Winner.create = (newWinner, result) => {
   });
 };
 
-Winner.findById = (prizeId, result) => {
-  sql.query(`SELECT COUNT(*) FROM players WHERE prize = '${prizeId}'`, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
-    
-
-    if (res.length) {
-      console.log("found prize: ", res[0]);
-      console.log();
-      result(null, res[0]);
-      return;
-    }
-
-    // not found prize with the id
-    result({ kind: "not_found" }, null);
-  });
-};
-
 Winner.getAll = result => { 
-  sql.query("SELECT date, firstname, LEFT(lastname, 1), prize FROM winners ORDER BY date", (err, res) => {
+  sql.query("SELECT date, firstname, LEFT(lastname, 1) AS lastname, prize FROM winners ORDER BY date", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

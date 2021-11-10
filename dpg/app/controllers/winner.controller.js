@@ -36,20 +36,3 @@ exports.findAll = (req, res) => {
     else res.send(data);
   });
 };
-
-// Get totalplayers by prizeid
-exports.findOne = (req, res) => {
-  Winner.findById(req.params.prizeId, (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        res.status(404).send({
-          message: `Not found prize with id ${req.params.prizeId}.`
-        });
-      } else {
-        res.status(500).send({
-          message: "Error retrieving prize with id " + req.params.prizeId
-        });
-      }
-    } else res.send(data);
-  });
-};
